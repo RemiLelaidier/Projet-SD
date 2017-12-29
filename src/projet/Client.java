@@ -9,7 +9,7 @@ public class Client {
 		
 		Socket socket;
 		try {
-		socket = new Socket("localhost",2009);
+		socket = new Socket("localhost",15000);
 		socket.close();
 		} catch (IOException e) {
 			
