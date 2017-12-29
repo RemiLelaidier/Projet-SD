@@ -5,7 +5,7 @@ import java.net.*;
 
 public class Client {
 
-	public static void main(String[] zero){
+	public static void main(String[] str){
 		
 		Socket socket;
 		try {

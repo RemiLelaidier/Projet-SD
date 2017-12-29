@@ -6,37 +6,36 @@ import java.net.Socket;
 import java.sql.DriverManager;
 import java.sql.SQLException;
 
-import com.mysql.jdbc.Connection;
-import com.mysql.jdbc.Statement;
-
 public class Serveur {
 
-	public static void main(String[] zero) {
+	public static void main(String[] str) {
 
 		ServerSocket socket;
 		try {
 			socket = new ServerSocket(15000);
-			Thread t = new Thread(new Acceptatition(socket));
+			Thread t = new Thread(new Acceptation(socket));
 			t.start();
 			System.out.println("commençons !");
-			enregistrement("Jean", "Dupont", "Saulcy");
+			enregistrement("Jean");
+
 		} catch (IOException e) {
 
 			e.printStackTrace();
 		}
 	}
 
-	public static void enregistrement(String prenom, String nom, String adresse) {
+	public static void enregistrement(String personne) {
 		String url = "jdbc:mysql://localhost/projet_sd";
 		String login = "root";
 		String passwd = "";
+
 		java.sql.Connection co = null;
 		java.sql.Statement st = null;
 		try {
 			Class.forName("com.mysql.jdbc.Driver");
 			co = DriverManager.getConnection(url, login, passwd);
 			st = co.createStatement();
-			String sql = "INSERT INTO client "+" VALUES ('test2','test2','test2')";
+			String sql = "INSERT INTO encheres VALUES ('test2',10.2,'test',now())";
 			st.executeUpdate(sql);
 		} catch (SQLException e) {
 			e.printStackTrace();
@@ -53,28 +52,29 @@ public class Serveur {
 	}
 }
 
-class Acceptatition implements Runnable {
+class Acceptation implements Runnable {
 
 	private ServerSocket socketserver;
 	private Socket socket;
 	private int nbclient = 1;
 
-	public Acceptatition(ServerSocket s) {
+	public Acceptation(ServerSocket s) {
 		socketserver = s;
 	}
 
 	public void run() {
 
-	        try {
-	        	while(true){
-			  socket = socketserver.accept(); // Un client se connecte on l'accepte
-	                  System.out.println("Le client  "+nbclient+ " s'est connecté !");
-	                  nbclient++;
-	                  socket.close();
-	        	}
-	        
-	        } catch (IOException e) {
-				e.printStackTrace();
+		try {
+			while (true) {
+				socket = socketserver.accept(); // Un client se connecte on
+												// l'accepte
+				System.out.println("Le client  " + nbclient + " s'est connecté !");
+				nbclient++;
+				socket.close();
 			}
+
+		} catch (IOException e) {
+			e.printStackTrace();
 		}
+	}
 }
