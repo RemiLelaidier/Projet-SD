@@ -1,5 +1,7 @@
-package projetSd;
+package main.java.secure;
 
+
+import main.java.utils.Folder;
 
 import java.io.*;
 import java.net.*;
@@ -83,16 +85,16 @@ public class ServerSecure implements Runnable {
 	  private void setupClientKeyStore() throws GeneralSecurityException, IOException {
 		    clientKeyStore = KeyStore.getInstance( "JKS" );
 		    clientKeyStore.load( 
-		    	new FileInputStream( "/home/thiaw/jdev-workspace/socket_secure/src/projetSd/client.public" ),
+		    	new FileInputStream(Folder.getResDirectory() + "client.public" ),
 		                       "public".toCharArray() );
-		  }
+	  }
 
-		  private void setupServerKeystore() throws GeneralSecurityException, IOException {
+	 private void setupServerKeystore() throws GeneralSecurityException, IOException {
 		    serverKeyStore = KeyStore.getInstance( "JKS" );
 		    serverKeyStore.load( 
-		    	new FileInputStream( "/home/thiaw/jdev-workspace/socket_secure/src/projetSd/server.private" ),
+		    	new FileInputStream( Folder.getResDirectory() + "server.private" ),
 		                        passphrase.toCharArray() );
-		  }
+	 }
 		  
 		  
 	  /**

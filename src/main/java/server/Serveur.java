@@ -1,17 +1,10 @@
-package main.java.projet;
+package main.java.server;
 
 import java.io.IOException;
 import java.net.ServerSocket;
 import java.net.Socket;
-import java.sql.DriverManager;
-import java.sql.ResultSetMetaData;
-import java.sql.SQLException;
-import java.sql.Timestamp;
+import java.sql.*;
 
-import com.mysql.jdbc.Connection;
-import com.mysql.jdbc.PreparedStatement;
-import com.mysql.jdbc.ResultSet;
-import com.mysql.jdbc.Statement;
 
 public class Serveur {
 	static Connection connection;
@@ -39,7 +32,7 @@ public class Serveur {
 			statement = connection.createStatement();
 			result = (ResultSet) statement.executeQuery("select * from encheres");
 			ResultSetMetaData resultMeta = result.getMetaData();
-			System.out.println("voici la table entière des encheres\n");
+			System.out.println("voici la table entiï¿½re des encheres\n");
 			for (int i = 1; i <= resultMeta.getColumnCount(); i++)
 				System.out.print("\t" + resultMeta.getColumnName(i).toUpperCase() + "\t ||");
 			System.out.println("\n");
@@ -145,10 +138,9 @@ public class Serveur {
 			int nombre = result.getRow();
 			if (nombre == 0) {
 				System.out.println("aucun produit ne correspond a votre recherche");
-<<<<<<< HEAD:src/projet/Serveur.java
 			}
-			System.out.println("il existe " + nombre + " objets correpondant à votre recherche");
-			System.out.println("voici la liste correspondant à votre recherche\n");
+			System.out.println("il existe " + nombre + " objets correpondant ï¿½ votre recherche");
+			System.out.println("voici la liste correspondant ï¿½ votre recherche\n");
 			for (int i = 1; i <= resultMeta.getColumnCount(); i++)
 				System.out.print("\t" + resultMeta.getColumnName(i).toUpperCase() + "\t ||");
 			System.out.println("\n");
@@ -162,10 +154,6 @@ public class Serveur {
 					System.out.print("\t" + result.getObject(i).toString() + "\t --");
 
 				System.out.println("\n");
-=======
-			} else {
-				System.out.println("il existe " + nombre + " objets correpondant ï¿½ votre recherche");
->>>>>>> 8e2b66c1b8334d39ef45612ef71bd695c2a2a455:serv/src/main/java/projet/Serveur.java
 
 			}
 			System.out.println("\n\n");

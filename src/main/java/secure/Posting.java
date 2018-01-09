@@ -1,4 +1,4 @@
-package projetSd;
+package main.java.secure;
 
 import java.io.*;
 public class Posting {
