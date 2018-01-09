@@ -1,4 +1,4 @@
-package projet;
+package main.java.projet;
 
 import java.io.IOException;
 import java.net.*;

@@ -1,4 +1,4 @@
-package projet;
+package main.java.projet;
 
 import java.io.IOException;
 import java.net.ServerSocket;
@@ -149,7 +149,7 @@ public class Serveur {
 			if (nombre == 0) {
 				System.out.println("aucun produit ne correspond a votre recherche");
 			} else {
-				System.out.println("il existe " + nombre + " objets correpondant à votre recherche");
+				System.out.println("il existe " + nombre + " objets correpondant ï¿½ votre recherche");
 
 			}
 		} catch (SQLException e) {
@@ -195,7 +195,7 @@ class Acceptation implements Runnable {
 			while (true) {
 				socket = socketserver.accept(); // Un client se connecte on
 												// l'accepte
-				System.out.println("Le client  " + nbclient + " s'est connecté !");
+				System.out.println("Le client  " + nbclient + " s'est connectï¿½ !");
 				nbclient++;
 				socket.close();
 			}
