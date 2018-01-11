@@ -13,7 +13,6 @@ public class ClientSecure implements Runnable{
 	
 	  public ClientSecure( String host, int port ) {
 		    connect(host, port);
-
 		    new Thread( this ).start();
 		  }
 	  
