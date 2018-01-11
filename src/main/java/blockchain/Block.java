@@ -2,10 +2,10 @@ package main.java.blockchain;
 
 public class Block {
     private int index;
-    private int previousBlock;
+    private Block previousBlock;
     private Transaction[] transactions = new Transaction[5];
 
-    public Block(int index, int previousBlock, Transaction[] transactions) {
+    public Block(int index, Block previousBlock, Transaction[] transactions) {
         this.index = index;
         this.previousBlock = previousBlock;
         this.transactions = transactions;
@@ -16,7 +16,17 @@ public class Block {
      * @return
      */
     public String toString(){
-        String string = "BLOCK:[cur:" + index + "prev:" + previousBlock + "transactions:[";
+        String string = "BLOCK:[cur:" + index;
+        // Previous Block checking;
+        if(previousBlock != null){
+            string += "prev:" + previousBlock.toString();
+        }
+        else {
+            string += "prev:null";
+        }
+
+        // Transactions to String
+        string += "transactions:[";
         for (Transaction trans: transactions) {
             string += trans.toString();
         }

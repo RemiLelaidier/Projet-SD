@@ -7,10 +7,10 @@ import java.util.concurrent.Callable;
 
 public class Pow implements Callable<byte[]>{
 
-    private static int COMPLEXITY = 2;
-    private Block block;
+    private static int COMPLEXITY = 3;
+    private Object block;
 
-    public Pow(Block block){
+    public Pow(Object block){
         this.block = block;
     }
 
@@ -31,7 +31,7 @@ public class Pow implements Callable<byte[]>{
         // Resolve
         do {
             String preHashBloc = stringBloc + i;
-            System.out.println(i + " : " + preHashBloc);
+            System.out.println("Hash " + i + " : BLOCK " + i );
             hash = digest.digest(preHashBloc.getBytes(StandardCharsets.UTF_8));
             i++;
             // Check resolved
