@@ -1,7 +1,8 @@
 package main.java.secure;
 
 
-import main.java.utils.Folder;
+import utils.Database;
+import utils.Folder;
 
 import java.io.*;
 import java.net.*;
@@ -158,12 +159,13 @@ public class ServerSecure implements Runnable {
 	    return postings.iterator();
 	  }
 	  
-	  static public void main( String args[] ) {
+	  static public void main( String args[] ) { 
+		  Database.connect();
+		  Database.Creationtable();
 		    if (args.length != 1) {
 		      System.err.println( "Usage: java Server [port number]" );
 		      System.exit( 1 );
 		    }
-
 		    int port = Integer.parseInt( args[0] );
 
 		    System.out.println( "Wait while secure random numbers are initialized...." );

@@ -9,3 +9,4 @@ log/
 serv/target/
 out/
 bin/
+/target/
