@@ -21,7 +21,6 @@ public class ClientSecure implements Runnable{
 	   * Input stream
 	   */
 	  private DataInputStream din;
-
 	  /**
 	   * Connection to the fr.miage.sd.client
 	   */
@@ -58,7 +57,6 @@ public class ClientSecure implements Runnable{
 	 * Run
 	 */
 	public void run() {
-		try {
 			while (true) {
 				// Show Menu
 				Console.printClientMenu();
@@ -85,13 +83,7 @@ public class ClientSecure implements Runnable{
 					default :
 						System.out.println("Erreur");
 				}
-
-				Posting posting = Posting.read( din );
-				postings.add( posting );
 			}
-		} catch( IOException ie ) {
-			ie.printStackTrace();
-		}
 	}
 
 	/**
@@ -209,19 +201,6 @@ public class ClientSecure implements Runnable{
 		      dout = new DataOutputStream( out );
 		} catch( GeneralSecurityException | IOException gse ) {
 		      gse.printStackTrace();
-		}
-	}
-
-	/**
-	 * new Posting
-	 * @param posting
-	 */
-	private void newPosting( Posting posting ) {
-		postings.add( posting );
-		try {
-			posting.write( dout );
-		} catch( IOException ie ) {
-			ie.printStackTrace();
 		}
 	}
 }

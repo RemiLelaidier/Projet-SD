@@ -24,11 +24,11 @@ public class Database {
 
 		String url = "jdbc:mysql://localhost/projet_sd?useSSL=true&serverTimezone=UTC";
 		/* Remi config*/
-		String login = "phpmyadmin";
-		String passwd = "root";
-		/* Anthony config
+		//String login = "phpmyadmin";
+		//String passwd = "root";
+		// Anthony config
 		String login = "root";
-		String passwd = "";*/
+		String passwd = "root";
 
 		try {
 			Class.forName("com.mysql.cj.jdbc.Driver");
