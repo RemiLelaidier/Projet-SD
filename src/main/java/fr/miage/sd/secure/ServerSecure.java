@@ -16,12 +16,6 @@ public class ServerSecure implements Runnable {
 	   * The port we will listen on
 	   */
 	  private int port;
-	  
-	  
-	  /**
-	   * A list of open connections
-	   */
-	  private Set connections = new HashSet();
 
 	  /**
 	   * A source of fr.miage.sd.secure random numbers
@@ -47,12 +41,6 @@ public class ServerSecure implements Runnable {
 	   * Used to generate a SocketFactory
 	   */
 	  private SSLContext sslContext;
-	  
-	  
-	  /**
-	   * A list of visible postings
-	   */
-	  private Set postings = new HashSet();
 	  
 	  
 	  /**
@@ -117,46 +105,14 @@ public class ServerSecure implements Runnable {
 	      while (true) {
 	        Socket socket = ss.accept();
 	        System.out.println( "Got connection from "+socket );
-
-	        ConnectionProcessor cp = new ConnectionProcessor( this, socket );
-	        connections.add( cp );
+	        
+	       
 	      }
 	    } catch( GeneralSecurityException gse ) {
 	      gse.printStackTrace();
 	    } catch( IOException ie ) {
 	      ie.printStackTrace();
 	    }
-	  }
-	  
-	  
-	  /**
-	   * Remove a connection that has been closed from our set
-	   * of open connections
-	   */
-	  void removeConnection( ConnectionProcessor cp ) {
-	    connections.remove( cp );
-	  }
-
-	  /**
-	   * Return an iteration over open connections
-	   */
-	  Iterator getConnections() {
-	    return connections.iterator();
-	  }
-
-	  /**
-	   * Add a posting to the list of postings
-	   */
-	  void addPosting( Posting posting ) {
-	    postings.add( posting );
-		System.out.println( "list is "+postings.size() );
-	  }
-
-	  /**
-	   * Return an iteration over visible postings
-	   */
-	  Iterator getPostings() {
-	    return postings.iterator();
 	  }
 	  
 	  static public void main( String args[] ) { 
