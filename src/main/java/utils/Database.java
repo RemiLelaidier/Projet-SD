@@ -51,8 +51,8 @@ public class Database {
 			
 			String sql3 = "CREATE TABLE IF NOT EXISTS bloc (\n"
 					+ "	id integer PRIMARY KEY auto_increment,\n" + "	prev_bloc integer,\n" + "	date timestamp,\n"
-					+ "	transaction1 varchar (25),\n" + "	transaction2 varchar (25),\n"
-					+ "	transaction3 varchar (25),\n" + "	transaction4 varchar (25),\n"
+					+ "	transaction1 integer,\n" + "	transaction2 integer,\n"
+					+ "	transaction3 integer,\n" + "	transaction4 integer,\n"
 					+ "	transaction5 varchar (25)\n" + ");";
 			
 			String sql4 = "CREATE TABLE IF NOT EXISTS personne (\n"
