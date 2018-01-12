@@ -1,4 +1,4 @@
-package main.java.blockchain;
+package fr.miage.sd.blockchain;
 
 import java.nio.charset.StandardCharsets;
 import java.util.concurrent.ExecutionException;
@@ -7,7 +7,6 @@ import java.util.concurrent.Executors;
 import java.util.concurrent.Future;
 
 public class Miner {
-
 
     public static void main(String[] args) {
         // Transactions

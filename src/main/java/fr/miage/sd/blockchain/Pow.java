@@ -1,4 +1,4 @@
-package main.java.blockchain;
+package fr.miage.sd.blockchain;
 
 import java.nio.charset.StandardCharsets;
 import java.security.MessageDigest;

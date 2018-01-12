@@ -1,4 +1,4 @@
-package main.java.utils;
+package fr.miage.sd.utils;
 
 import java.sql.Connection;
 import java.sql.DriverManager;
@@ -20,12 +20,15 @@ public class Database {
 	 * atttention, il est importante de garder ?useSSL=true&serverTimezone=UTC
 	 * en paramètre lors de la connexion sécurisé sinon il n'est pas possible de se connecter
 	 */
-
 	public static Connection connect() {
 
 		String url = "jdbc:mysql://localhost/projet_sd?useSSL=true&serverTimezone=UTC";
+		/* Remi config*/
+		String login = "phpmyadmin";
+		String passwd = "root";
+		/* Anthony config
 		String login = "root";
-		String passwd = "";
+		String passwd = "";*/
 
 		try {
 			Class.forName("com.mysql.cj.jdbc.Driver");
@@ -36,6 +39,10 @@ public class Database {
 			return null;
 		}
 	}
+
+	/**
+	 *
+	 */
 	public static void Creationtable() {
 		try {
 		String sql = "CREATE TABLE IF NOT EXISTS transactions (\n"
@@ -66,7 +73,7 @@ public class Database {
 			connection = connect();
 			statement = connection.createStatement();
 			statement.execute(sql);
-		statement.execute(sql2);
+			statement.execute(sql2);
 			statement.execute(sql3);
 			statement.execute(sql4);
 			statement.execute(sql5);

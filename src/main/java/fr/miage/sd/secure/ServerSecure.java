@@ -1,8 +1,8 @@
-package main.java.secure;
+package fr.miage.sd.secure;
 
 
-import utils.Database;
-import utils.Folder;
+import fr.miage.sd.utils.Database;
+import fr.miage.sd.utils.Folder;
 
 import java.io.*;
 import java.net.*;
@@ -24,17 +24,17 @@ public class ServerSecure implements Runnable {
 	  private Set connections = new HashSet();
 
 	  /**
-	   * A source of secure random numbers
+	   * A source of fr.miage.sd.secure random numbers
 	   */
 	  static private SecureRandom secureRandom;
 	  
 	  /**
-	   * KeyStore contenant cle public client(cf: client.public)
+	   * KeyStore contenant cle public fr.miage.sd.client(cf: fr.miage.sd.client.public)
 	   */
 	  private KeyStore clientKeyStore;
 	  
 	  /**
-	   * KeyStore fcontenant cle public serveur avec son certificat(cf: server.private)
+	   * KeyStore fcontenant cle public serveur avec son certificat(cf: fr.miage.sd.server.private)
 	   */
 	  private KeyStore serverKeyStore;
 	  
@@ -66,7 +66,7 @@ public class ServerSecure implements Runnable {
 	  }
 	  
 	  private void setupSSLContext() throws GeneralSecurityException, IOException {
-		  //authentification du client distant
+		  //authentification du fr.miage.sd.client distant
 		    TrustManagerFactory tmf = TrustManagerFactory.getInstance( "SunX509" );
 		    tmf.init( clientKeyStore );
 
@@ -110,7 +110,7 @@ public class ServerSecure implements Runnable {
 	      SSLServerSocketFactory sf = sslContext.getServerSocketFactory();
 	      SSLServerSocket ss = (SSLServerSocket)sf.createServerSocket( port );
 
-	      // Require client authorization
+	      // Require fr.miage.sd.client authorization
 	      ss.setNeedClientAuth( true );
 
 	      System.out.println( "Listening on port "+port+"..." );
@@ -149,7 +149,7 @@ public class ServerSecure implements Runnable {
 	   */
 	  void addPosting( Posting posting ) {
 	    postings.add( posting );
-	System.out.println( "list is "+postings.size() );
+		System.out.println( "list is "+postings.size() );
 	  }
 
 	  /**
@@ -162,17 +162,17 @@ public class ServerSecure implements Runnable {
 	  static public void main( String args[] ) { 
 		  Database.connect();
 		  Database.Creationtable();
-		    if (args.length != 1) {
+		  if (args.length != 1) {
 		      System.err.println( "Usage: java Server [port number]" );
 		      System.exit( 1 );
-		    }
-		    int port = Integer.parseInt( args[0] );
-
-		    System.out.println( "Wait while secure random numbers are initialized...." );
-		    secureRandom = new SecureRandom();
-		    secureRandom.nextInt();
-		    System.out.println( "Done." );
-
-		    new ServerSecure( port );
 		  }
+		  int port = Integer.parseInt( args[0] );
+
+		  System.out.println( "Wait while fr.miage.sd.secure random numbers are initialized...." );
+		  secureRandom = new SecureRandom();
+		  secureRandom.nextInt();
+		  System.out.println( "Done." );
+
+		  new ServerSecure( port );
+	  }
 }

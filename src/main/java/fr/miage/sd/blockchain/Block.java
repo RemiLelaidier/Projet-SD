@@ -1,4 +1,4 @@
-package main.java.blockchain;
+package fr.miage.sd.blockchain;
 
 public class Block {
     private int index;

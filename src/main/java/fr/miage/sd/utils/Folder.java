@@ -1,4 +1,4 @@
-package main.java.utils;
+package fr.miage.sd.utils;
 
 import java.io.File;
 

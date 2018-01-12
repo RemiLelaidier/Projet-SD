@@ -1,4 +1,4 @@
-package main.java.secure;
+package fr.miage.sd.secure;
 
 import java.awt.*;
 import java.io.*;
@@ -13,17 +13,17 @@ public class ConnectionProcessor implements Runnable {
 	  private ServerSecure server;
 
 	  /**
-	   * The socket connected to our client
+	   * The socket connected to our fr.miage.sd.client
 	   */
 	  private Socket socket;
 
 	  /**
-	   * Connection to the client
+	   * Connection to the fr.miage.sd.client
 	   */
 	  private DataInputStream din;
 
 	  /**
-	   * Connection to the client
+	   * Connection to the fr.miage.sd.client
 	   */
 	  private DataOutputStream dout;
 	  
@@ -45,7 +45,7 @@ public class ConnectionProcessor implements Runnable {
 	  private void sendExistingPostings() throws IOException {
 	    for (Iterator it=server.getPostings(); it.hasNext();) {
 	      Posting posting = (Posting)it.next();
-	System.out.println( "hist "+posting );
+	      System.out.println( "hist "+posting );
 	      sendPosting( posting );
 	    }
 	  }
@@ -66,24 +66,24 @@ public class ConnectionProcessor implements Runnable {
 	      ConnectionProcessor cp = (ConnectionProcessor)it.next();
 
 	      if (cp==this) {
-	System.out.println( "forward "+this+" "+cp+" (skip)" );
+			System.out.println( "forward "+this+" "+cp+" (skip)" );
 	        continue;
 	      }
 
-	System.out.println( "forward "+this+" "+cp );
+			System.out.println( "forward "+this+" "+cp );
 	      cp.sendPosting( posting );
 	    }
 	  }
 
 	  /**
-	   * Send a new posting to this client
+	   * Send a new posting to this fr.miage.sd.client
 	   */
 	  private void sendPosting( Posting posting ) throws IOException {
 	    posting.write( dout );
 	  }
 
 	  /**
-	   * Background thread: read new text strings from the client,
+	   * Background thread: read new text strings from the fr.miage.sd.client,
 	   * and forward them to all other clients
 	   */
 	  public void run() {
