@@ -112,7 +112,11 @@ public class ClientSecure implements Runnable{
 		// TODO
 	}
 
-	private void starMine(){
+	private void auctionBuy(){
+		// TODO
+	}
+
+	private void startMine(){
 		// TODO
 	}
 
