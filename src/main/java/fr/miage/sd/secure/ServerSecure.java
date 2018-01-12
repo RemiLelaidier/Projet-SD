@@ -3,6 +3,8 @@ package fr.miage.sd.secure;
 
 import fr.miage.sd.utils.Database;
 import fr.miage.sd.utils.Folder;
+import projetSd.ConnectionProcessor;
+import projetSd.Posting;
 
 import java.io.*;
 import java.net.*;
@@ -16,6 +18,13 @@ public class ServerSecure implements Runnable {
 	   * The port we will listen on
 	   */
 	  private int port;
+	  
+	  /**
+	   * A list of visible postings
+	   */
+	  private Set postings = new HashSet();
+	  
+	  private Set connections = new HashSet();
 
 	  /**
 	   * A source of fr.miage.sd.secure random numbers
@@ -98,15 +107,50 @@ public class ServerSecure implements Runnable {
 	      SSLServerSocketFactory sf = sslContext.getServerSocketFactory();
 	      SSLServerSocket ss = (SSLServerSocket)sf.createServerSocket( port );
 
-	      // Require fr.miage.sd.client authorization
+	      // Require client authorization
 	      ss.setNeedClientAuth( true );
 
 	      System.out.println( "Listening on port "+port+"..." );
 	      while (true) {
 	        Socket socket = ss.accept();
-	        System.out.println( "Got connection from "+socket );
 	        
-	       
+           BufferedReader in = new BufferedReader(new InputStreamReader(socket.getInputStream()));
+   		InputStreamReader isr = new InputStreamReader(socket.getInputStream());
+   		
+   		/* On transforme cette file en file avec tampon */
+   		BufferedReader flux_entrant = new BufferedReader(isr);
+   		
+   		// On récupère la file de sortie
+   		PrintWriter ma_sortie = new PrintWriter(socket.getOutputStream(), true);
+   		System.out.println("Sortie attachée");
+   		
+   		String clientName = socket.getRemoteSocketAddress().toString();
+   		System.out.format("Prêt à servir le Client %s\n", clientName);
+
+   		String message_lu = new String();
+
+   		int temp = 0;
+   		while  ((message_lu = flux_entrant.readLine()) != null) {
+   			temp = Integer.parseInt(message_lu);
+   			switch(temp) {
+   			case 1:
+   				Database.listetransactions();
+   				break;
+   			case 2:
+   				Database.listeencheres();
+   				break;
+   			case 3:
+   				Database.mise(id, prix);
+   				break;
+   			case 4:
+   				Database.achat(id);
+   				break;
+
+   			default:
+   				break;
+   			
+   			}
+   		}
 	      }
 	    } catch( GeneralSecurityException gse ) {
 	      gse.printStackTrace();
@@ -114,6 +158,39 @@ public class ServerSecure implements Runnable {
 	      ie.printStackTrace();
 	    }
 	  }
+	  
+	  
+	  /**
+	   * Remove a connection that has been closed from our set
+	   * of open connections
+	   */
+	  void removeConnection( ConnectionProcessor cp ) {
+	    connections.remove( cp );
+	  }
+
+	  /**
+	   * Return an iteration over open connections
+	   */
+	  Iterator getConnections() {
+	    return connections.iterator();
+	  }
+
+	  /**
+	   * Add a posting to the list of postings
+	   */
+	  void addPosting( Posting posting ) {
+	    postings.add( posting );
+	System.out.println( "list is "+postings.size() );
+	  }
+
+	  /**
+	   * Return an iteration over visible postings
+	   */
+	  Iterator getPostings() {
+	    return postings.iterator();
+	  }
+	  
+
 	  
 	  static public void main( String args[] ) { 
 		  Database.connect();

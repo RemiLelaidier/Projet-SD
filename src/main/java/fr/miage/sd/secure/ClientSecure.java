@@ -4,6 +4,7 @@ import fr.miage.sd.utils.Console;
 import fr.miage.sd.utils.Folder;
 
 import java.io.*;
+import java.net.Socket;
 import java.security.*;
 import java.util.*;
 
@@ -17,14 +18,9 @@ public class ClientSecure implements Runnable{
 		    new Thread( this ).start();
 		  }
 	  
-	  /**
-	   * Input stream
-	   */
-	  private DataInputStream din;
-	  /**
-	   * Connection to the fr.miage.sd.client
-	   */
-	  private DataOutputStream dout;
+	  private String host = "";
+	  private int port = 0;
+	     private Scanner console_input;
 
 	  /**
 	   * nb aleatoire securise
@@ -35,12 +31,6 @@ public class ClientSecure implements Runnable{
 	   * keystore contenant la paire cle public / privee du fr.miage.sd.client (cf: fr.miage.sd.client.privee)
 	   */
 	  private KeyStore clientKeyStore;
-	  
-	  
-	  /**
-	   * A list of visible postings
-	   */
-	  private Set postings = new HashSet();
 	  
 	  
 	  // creation d'un keystore contenant la cle public du serveur (cf: fr.miage.sd.server.public)
@@ -56,35 +46,42 @@ public class ClientSecure implements Runnable{
 	/**
 	 * Run
 	 */
-	public void run() {
-			while (true) {
-				// Show Menu
-				Console.printClientMenu();
-				// Determine action to perform
-				Scanner in = new Scanner(System.in);
-				switch (in.nextInt()){
-					case 1:
-						transactionsList();
-						break;
-					case 2 :
-						auctionList();
-						break;
-					case 3 :
-						auctionMise();
-						break;
-					case 4 :
-						auctionBuy();
-						break;
-					case 5:
-						startMine();
-					case 6 :
-						System.exit(1);
-						break;
-					default :
-						System.out.println("Erreur");
-				}
-			}
-	}
+	  public void run() {
+		  try {
+	      setupServerKeystore();
+	      setupClientKeyStore();
+	      setupSSLContext();
+
+	      SSLSocketFactory sf = sslContext.getSocketFactory();
+	      SSLSocket socket = (SSLSocket)sf.createSocket( host, port );
+	      
+	      Scanner console_input = new Scanner(System.in);
+	      
+		      while (true) {
+		    	  //this.execute();
+		    	  
+                  PrintWriter ma_sortie = new PrintWriter(
+                          socket.getOutputStream(), true);
+          System.out.println("entrer les données");
+          while (true) {
+                  String data = console_input.next();
+                  ma_sortie.println(data);
+                  if (data.equals("end")){
+                          System.out.println("termine");
+                          socket.close();
+                          System.exit(0);
+
+                  }
+          }
+		    	  
+		      }
+		  }
+		  
+          catch (IOException | GeneralSecurityException e) {
+              System.out.format("Probleme de connection avec serveur fontionne : %s",e);
+              System.exit(-1);
+       }
+		  }
 
 	/**
 	 * Client ACTIONS
@@ -111,6 +108,31 @@ public class ClientSecure implements Runnable{
 	private void startMine(){
 		// TODO
 	}
+	
+	  public void execute() {
+          Scanner console_input = new Scanner(System.in);
+          Socket laConnection = null;
+          try {
+                  laConnection = new Socket(this.host, this.port);
+                  PrintWriter ma_sortie = new PrintWriter(
+                                  laConnection.getOutputStream(), true);
+                  System.out.println("entrer les données");
+                  while (true) {
+                          String data = console_input.next();
+                          ma_sortie.println(data);
+                          if (data.equals("end")){
+                                  System.out.println("termine");
+                                  laConnection.close();
+                                  System.exit(0);
+                          }
+
+                  }
+          }
+           catch (IOException e) {
+                  System.out.format("Probleme de connection avec serveur fontionne : %s",e);
+                  System.exit(-1);
+           }
+          }
 
 	/**
 	 * Main
@@ -155,7 +177,7 @@ public class ClientSecure implements Runnable{
 		                     tmf.getTrustManagers(),
 		                     secureRandom );
 		  }
-
+	  	
 
 	/**
 	 * Creation clef publique serveur
@@ -194,11 +216,6 @@ public class ClientSecure implements Runnable{
 		      SSLSocketFactory sf = sslContext.getSocketFactory();
 		      SSLSocket socket = (SSLSocket)sf.createSocket( host, port );
 
-		      InputStream in = socket.getInputStream();
-		      OutputStream out = socket.getOutputStream();
-
-		      din = new DataInputStream( in );
-		      dout = new DataOutputStream( out );
 		} catch( GeneralSecurityException | IOException gse ) {
 		      gse.printStackTrace();
 		}

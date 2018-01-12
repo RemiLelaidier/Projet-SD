@@ -1,0 +1,12 @@
+==> principe:
+
+ Le serveur envoie son certificat au client et le client vérifie le certificat du serveur.
+ 
+Le client envoie son certificat au serveur et le serveur vérifie le certificat client.
+
+Le client crypte les informations de mot de passe avec la clé publique du serveur et l'envoie 
+*au serveur. Ces informations de mot de passe sont utilisées par chaque extrémité de la connexion 
+pour générer des clés secrètes identiques, qui seront ensuite utilisées pour transmettre des données. 
+
+
+
