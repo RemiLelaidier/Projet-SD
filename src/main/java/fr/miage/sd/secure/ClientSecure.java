@@ -66,18 +66,20 @@ public class ClientSecure implements Runnable{
 				Scanner in = new Scanner(System.in);
 				switch (in.nextInt()){
 					case 1:
-						// TODO Liste des transactions
+						transactionsList();
 						break;
 					case 2 :
-						// TODO Miser sur enchere en cours
+						auctionList();
 						break;
 					case 3 :
-						// TODO Achat immédiat
+						auctionMise();
 						break;
 					case 4 :
-						// TODO Miner Bloc
+						auctionBuy();
 						break;
-					case 5 :
+					case 5:
+						startMine();
+					case 6 :
 						System.exit(1);
 						break;
 					default :
@@ -90,6 +92,28 @@ public class ClientSecure implements Runnable{
 		} catch( IOException ie ) {
 			ie.printStackTrace();
 		}
+	}
+
+	/**
+	 * Client ACTIONS
+	 */
+	/**
+	 * Transactions list method
+	 */
+	private void transactionsList(){
+		// TODO
+	}
+
+	private void auctionList(){
+		// TODO
+	}
+
+	private void auctionMise(){
+		// TODO
+	}
+
+	private void starMine(){
+		// TODO
 	}
 
 	/**
